@@ -68,3 +68,18 @@ function drawBoxes(){
   $("#for").css("left",newLeftDistances[4]+left_adjust);
 
 }
+
+$(document).ready(function(){
+  // plop them images in there, instead of shuffle.js
+  var urls = ['images/frankenthaler.jpg','images/layla.jpg','images/girl.jpg','images/name.jpg'];
+
+  var imgTopDistances = [0,150,850,1200];
+  var imgLeftDistances = [880,80,200,800];
+  var imgWidths = [300,540,220,280];
+
+  for(var i = 0; i<urls.length; i++){
+
+    $("#images").append("<img src='"+urls[i]+"' style='top: "+imgTopDistances[i]+"px; left: "+imgLeftDistances[i]+"px;' width="+imgWidths[i]+" />");
+  }
+
+});
