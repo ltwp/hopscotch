@@ -5,7 +5,7 @@ var topDistances = [0, 400, 750, 870, 1260];
 var LeftDistances = [0.5, 0.67, 0.3, 0.8, 0.4];
 // distances from left are % of window width
 
-var topControls = [50,200, 600, 720, 900, 880, 600, 1000];
+var topControls = [50,150, 600, 720, 900, 880, 600, 1000];
 // four control values per text block (except first/last)
 
 var leftControls = [60, -30, 10, -40, 100, -90, -20, 30];
@@ -19,19 +19,22 @@ function setup(){
 
   drawlines();
   putboxes();
+
+  // tack the footer in at the end.
+  docHeight = $(document).height();
+  $('body').append("&copy; Hopscotch. Thanks, <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Peter Mendelsund</a>.")
+  $("#footer").css("top",docHeight-150);
 }
 
 function windowResized(){
   var w = windowWidth;
   newLeftDistances = math.multiply(LeftDistances, w);
-  console.log('hey, resized');
-
   drawlines();
   putboxes();
 }
 
 function drawlines(){
-  console.log('ok drawing lines');
+  //console.log('ok drawing lines');
   background(255);
   noFill();
   stroke(0);
@@ -46,7 +49,7 @@ function drawlines(){
 }
 
 function putboxes(){
-  console.log('ok drawing boxes');
+  //console.log('ok drawing boxes');
 
   var top_adjust = 100;
   var left_adjust = -115;
