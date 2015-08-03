@@ -38,7 +38,6 @@ function drawlines(){
   for(i=0; i<n_beziers; i++){
     // bezier syntax:
     // bezier(pt1x, pt1y, cl1x,cl1y,cl2x,cl2y,pt2x,pt2y);
-
     bezier(leftDistances[i],topDistances[i],leftDistances[i]+leftControls[i*2],topControls[i*2],leftDistances[i+1]+leftControls[i*2+1],topControls[i*2+1],leftDistances[i+1],topDistances[i+1]);
   }
 }
@@ -57,5 +56,7 @@ function putboxes(){
   $("#two").css("left",leftDistances[2]+left_adjust);
   $("#thr").css("left",leftDistances[3]+left_adjust);
   $("#for").css("left",leftDistances[4]+left_adjust);
+
+  //console.log('put them fucking boxes in yee');
 
 }
