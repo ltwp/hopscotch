@@ -14,20 +14,13 @@ function shuffle(array) {
   return array;
 }
 
-var urls = ['1.jpg','2.jpg','3.jpg','4.jpg','5.jpg'];
-var sizes = ['500','250','400','500','500'];
+var urls = ['images/beach.jpg','images/easy.jpg','images/frankenthaler.jpg','images/girl.jpg','images/layla.jpg','images/name.jpg'];
+var sizes = ['531','600','560','454','800','400'];
 var xs = [];
 var ys = [];
 
 
 $(document).ready(function(){
-
-  //var rand = Math.floor(Math.random()*5);
-
-  //$('#image').append('<img src="' + urls[rand] + '" />');
-  //document.getElementById("image").innerHTML =
-  //    '<img width = "' + sizes[rand] + '" src="' + urls[rand] + '" />';
-
   var order = [];
   for(var i = 0; i < urls.length; i++){
     order[i] = i;
@@ -36,12 +29,13 @@ $(document).ready(function(){
   order = shuffle(order);
 
   var div_width = $('#images').width();
+  var doc_height = $(document).height();
   var mega_string = "";
 
   for(var i = 0; i < urls.length; i++){
     var j = order[i];
     xs[j] = Math.floor(Math.random()*(div_width-sizes[i]));
-    ys[j] = Math.floor(Math.random()*1000);
+    ys[j] = Math.floor(Math.random()*doc_height);
 
 
     mega_string = mega_string +
@@ -50,5 +44,4 @@ $(document).ready(function(){
 
   document.getElementById("images").innerHTML = mega_string;
 
-  //console.log($("#images").width());
 });

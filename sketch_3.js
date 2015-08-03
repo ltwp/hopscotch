@@ -1,3 +1,6 @@
+// Using p5.js, we will draw the curves and position the paragraphs.
+// Also currently plops the footer at the bottom lol
+
 var topDistances = [0, 400, 750, 870, 1260];
 // distances from top are absolute, in pixels
 // each of these is a place for a paragraph, start/end for line.
@@ -17,8 +20,8 @@ function setup(){
 
   newLeftDistances = math.multiply(LeftDistances, w);
 
-  drawlines();
-  putboxes();
+  drawLines();
+  drawBoxes();
 
   // tack the footer in at the end.
   docHeight = $(document).height();
@@ -29,11 +32,11 @@ function setup(){
 function windowResized(){
   var w = windowWidth;
   newLeftDistances = math.multiply(LeftDistances, w);
-  drawlines();
-  putboxes();
+  drawLines();
+  drawBoxes();
 }
 
-function drawlines(){
+function drawLines(){
   //console.log('ok drawing lines');
   background(255);
   noFill();
@@ -48,10 +51,10 @@ function drawlines(){
   }
 }
 
-function putboxes(){
+function drawBoxes(){
   //console.log('ok drawing boxes');
 
-  var top_adjust = 100;
+  var top_adjust = 105;
   var left_adjust = -115;
 
   $("#one").css("top",topDistances[1]+top_adjust);
