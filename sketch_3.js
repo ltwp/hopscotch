@@ -78,8 +78,8 @@ $(document).ready(function(){
   var imgWidths = [300,540,220,280];
 
   for(var i = 0; i<urls.length; i++){
-
-    $("#images").append("<img src='"+urls[i]+"' style='top: "+imgTopDistances[i]+"px; left: "+imgLeftDistances[i]+"px;' width="+imgWidths[i]+" />");
+    var rotate = Math.floor((Math.random()-0.5)*30);
+    $("#images").append("<img src='"+urls[i]+"' style='top: "+imgTopDistances[i]+"px; left: "+imgLeftDistances[i]+"px; -ms-transform: rotate("+rotate+"deg); -webkit-transform: rotate("+rotate+"deg); transform: rotate("+rotate+"deg);' width="+imgWidths[i]+" />");
   }
 
 });
