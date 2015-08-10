@@ -16,7 +16,7 @@ var leftControls = [60, -30, 10, -40, 100, -90, -20, 30];
 
 // plop them images in there, instead of shuffle.js
 var urls = ['images/frankenthaler.jpg','images/layla.jpg','images/girl.jpg','images/name.jpg'];
-var imgInfo = ['Helen Frankenthaler','See Pair No.1, Layla,'',''];
+var imgInfo = ['Helen Frankenthaler','See Pair No.1, Layla','',''];
 
 var imgTopDistances = [0,150,850,1200];
 var imgLeftDistances = [880,80,200,800];
@@ -85,6 +85,7 @@ function setup(){ // SETUP SETUP SETUP SETUP SETUP SETUP SETUP SETUP
 $(document).ready(function(){
 
   for(var i = 0; i<urls.length; i++){
+
     $("#images").append("<div class='img' style='top: "+imgTopDistances[i]+"px; left: "+imgLeftDistances[i]+"px; -ms-transform: rotate("+imgRotates[i]+"deg); -webkit-transform: rotate("+imgRotates[i]+"deg); transform: rotate("+imgRotates[i]+"deg);'><img src='"+urls[i]+"' width="+imgWidths[i]+" /><span class='caption' style='width: "+imgWidths[i]+"'>"+imgInfo[i]+"</div>");
   }
 
