@@ -22,4 +22,20 @@ $(document).ready(function(){
     $(this).css("color","rgba(0,0,0,0)");
   });
 
+  $('.cover').click(function(){
+
+    var clicked_id = $(this).attr("id");
+    $("#display_"+clicked_id).css("display","block");
+//     $("#display_"+clicked_id).children(".left_column").append("<span class='close'>Close this overlay.</span>");
+
+  });
+
+  $('.close').click(function(){
+
+    var overlay_id = $(this).parents(".display");
+    overlay_id.css("display","none");
+
+  });
+
 });
+

@@ -47,7 +47,7 @@ function drawLines(){
 
 function drawBlocks(){
 
-  var top_adjust = 55;
+  var top_adjust = 40;
   var left_adjust = -115;
 
   for(i=0; i<=topDistances.length; i++){

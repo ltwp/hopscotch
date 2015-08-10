@@ -69,6 +69,7 @@
             .block img{
                 background: #ccffee;
                 padding: 5px;
+                cursor: pointer;
             }
 
             .cover{
@@ -79,7 +80,48 @@
                 position: absolute;
                 left:0;
                 top: 0;
-                display: block;
+                cursor: pointer;
+                font-size: 25px;
+            }
+
+            .display{
+                display: none;
+                width: 100%;
+                height: 500px;
+                white-space: nowrap;
+                overflow-x: scroll;
+                overflow-y: hidden;
+                position: fixed;
+                top: 10%;
+                left: 0px;
+                z-index: 4;
+                background-color: rgba(255,255,255,0.9);
+                padding: 20px;
+            }
+
+            .display::-webkit-scrollbar {
+                display: none;
+            }
+
+            .display img{
+                height: 500px;
+                width: auto;
+                display: inline-block;
+                z-index: 5;
+                margin: 0px 10px;
+            }
+
+            .display .left_column{
+                height: 500px;
+                margin: 0px 10px;
+                width: 300px;
+                display: inline-block;
+                z-index: 5;
+                white-space: normal;
+            }
+
+            .left_column .close{
+                cursor: pointer;
             }
 
             #footer{
@@ -107,7 +149,7 @@
 
         <div class="block" id="c_2">
             <img src="images/layla.jpg" width="300" title='See pair No.1: Layla.' />
-            <div class="cover">Pair No.1, Layla</div>
+            <div class="cover" id="layla">Pair No.1, Layla</div>
         </div>
 
         <div class="block" id="c_4">
@@ -116,6 +158,23 @@
 
         <div id="footer">
             &copy; Hopscotch. Thanks, <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Peter Mendelsund</a>.
+        </div>
+
+        <div class="display" id="display_layla">
+            <div class="left_column">
+                <h1>No.1: Layla</h1>
+
+                <p><a href="http://laylamayehsan.com">Layla May Ehsan</a> is a goddess and we love her so we made her some overalls. They are our first attempt and are not very good yet.</p>
+                <p>Providence, RI. May 2015.</p>
+
+                <span class='close'>&#10006; close this overlay</span>
+
+            </div>
+
+            <img src="images/layla/1.JPG" />
+            <img src="images/layla/2.JPG" />
+            <img src="images/layla/3.JPG" />
+
         </div>
 
     </body>
