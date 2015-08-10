@@ -28,10 +28,6 @@
                 padding: 1px;
             }
 
-            img{
-                position: absolute;
-            }
-
             h1{
                 margin-top: 50px;
                 font-size: 38px;
@@ -62,6 +58,31 @@
                 z-index: 2;
             }
 
+            .img{
+                position: absolute;
+                cursor: pointer;
+            }
+
+            .img img,.caption{
+                position: absolute;
+            }
+
+            .img img:hover{
+                opacity: 0.3;
+            }
+            .img .caption{
+                color: black;
+                opacity: 0;
+                text-align: center;
+            }
+            .img:hover .caption{
+                opacity: 1;
+            }
+            .img a{
+                background: transparent;
+            }
+
+
             #images{
                 width: 100%;
                 position: absolute;
@@ -90,7 +111,7 @@
         </div>
 
         <div class="texty" id="thr">
-            See pair <a href="/layla">No.1 Layla</a>.
+            See pair <a href="layla.html">No.1 Layla</a>.
         </div>
 
         <div class="texty" id="for">

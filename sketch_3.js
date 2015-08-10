@@ -14,19 +14,17 @@ var topControls = [50,150, 600, 720, 900, 880, 600, 1000];
 var leftControls = [60, -30, 10, -40, 100, -90, -20, 30];
 // in pixels to add to w*proportions
 
-function setup(){
-  var w = windowWidth;
-  createCanvas(w,max(topDistances)+400);
+// plop them images in there, instead of shuffle.js
+var urls = ['images/frankenthaler.jpg','images/layla.jpg','images/girl.jpg','images/name.jpg'];
+var imgInfo = ['Helen Frankenthaler','See Pair No.1, Layla,'',''];
 
-  newLeftDistances = math.multiply(LeftDistances, w);
+var imgTopDistances = [0,150,850,1200];
+var imgLeftDistances = [880,80,200,800];
+var imgWidths = [300,540,220,280];
+var imgRotates = [];
 
-  drawLines();
-  drawBoxes();
-
-  // tack the footer in at the end.
-  docHeight = $(document).height();
-  $('body').append("&copy; Hopscotch. Thanks, <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Peter Mendelsund</a>.")
-  $("#footer").css("top",docHeight-150);
+for(var i = 0; i<urls.length; i++){
+  imgRotates[i] = Math.floor((Math.random()-0.5)*30);
 }
 
 function windowResized(){
@@ -69,17 +67,47 @@ function drawBoxes(){
 
 }
 
-$(document).ready(function(){
-  // plop them images in there, instead of shuffle.js
-  var urls = ['images/frankenthaler.jpg','images/layla.jpg','images/girl.jpg','images/name.jpg'];
+function setup(){ // SETUP SETUP SETUP SETUP SETUP SETUP SETUP SETUP
+  var w = windowWidth;
+  createCanvas(w,max(topDistances)+400);
 
-  var imgTopDistances = [0,150,850,1200];
-  var imgLeftDistances = [880,80,200,800];
-  var imgWidths = [300,540,220,280];
+  newLeftDistances = math.multiply(LeftDistances, w);
+
+  drawLines();
+  drawBoxes();
+
+  // tack the footer in at the end.
+  docHeight = $(document).height();
+  $('body').append("&copy; Hopscotch. Thanks, <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Peter Mendelsund</a>.")
+  $("#footer").css("top",docHeight-150);
+}
+
+$(document).ready(function(){
 
   for(var i = 0; i<urls.length; i++){
-    var rotate = Math.floor((Math.random()-0.5)*30);
-    $("#images").append("<img src='"+urls[i]+"' style='top: "+imgTopDistances[i]+"px; left: "+imgLeftDistances[i]+"px; -ms-transform: rotate("+rotate+"deg); -webkit-transform: rotate("+rotate+"deg); transform: rotate("+rotate+"deg);' width="+imgWidths[i]+" />");
+    $("#images").append("<div class='img' style='top: "+imgTopDistances[i]+"px; left: "+imgLeftDistances[i]+"px; -ms-transform: rotate("+imgRotates[i]+"deg); -webkit-transform: rotate("+imgRotates[i]+"deg); transform: rotate("+imgRotates[i]+"deg);'><img src='"+urls[i]+"' width="+imgWidths[i]+" /><span class='caption' style='width: "+imgWidths[i]+"'>"+imgInfo[i]+"</div>");
   }
 
 });
+
+// $(function () {
+//   $('img').hover(function(){
+//     // mouse enters image
+
+//     var hover_img = $(this);
+//     var hoverTop = hover_img.css("top");
+//     var hoverLeft = hover_img.css("left");
+//     var hoverRotate = hover_img.css("transform");
+//     var hoverWidth = hover_img.width();
+//     var hoverHeight = hover_img.height();
+//     var hoverURL = hover_img.attr("src");
+
+//     console.log(hoverURL);
+
+//     $('#images').append("<div class='hover' style='width: "+hoverWidth+"px; height: "+hoverHeight+"px; top: "+hoverTop+"px; left: "+hoverLeft+"px; -ms-transform: rotate("+hoverRotate+"deg); -webkit-transform: rotate("+hoverRotate+"deg); transform: rotate("+hoverRotate+"deg);'>test</div>");
+
+//   },function(){
+//     // mouse exits image
+
+//   });
+// });
