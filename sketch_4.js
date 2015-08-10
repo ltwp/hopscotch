@@ -4,18 +4,29 @@ var topDistances = [0, 400, 750, 870, 1260];
 // distances from top are absolute, in pixels
 // each of these is a place for a paragraph, start/end for line.
 
-var LeftDistances = [0.5, 0.67, 0.3, 0.8, 0.4];
+var leftDistances = [0.5, 0.67, 0.3, 0.8, 0.4];
 // distances from left are % of window width
 
 var topControls = [50,150, 600, 720, 900, 880, 600, 1000];
 // four control values per text block (except first/last)
 
 var leftControls = [60, -30, 10, -40, 100, -90, -20, 30];
-// in pixels to add to w*proportions
+// in pixels to add to w*leftDistances
 
 var rotations = [0];
 for(var i = 1; i<topDistances.length-1; i++){
   rotations[i] = Math.floor((Math.random()-0.5)*22);
+}
+
+var newLeftDistances = [];
+
+function getNewLefts(){
+  var w = windowWidth;
+  if(w < 600){
+    w = 600;
+  }
+
+  newLeftDistances = math.multiply(leftDistances, w);
 }
 
 /////////////////////////////////////////////////////////
@@ -53,8 +64,7 @@ function setup(){
   var canvas = createCanvas(w,max(topDistances)+400);
   canvas.parent('p5'); // put the p5 stuff in big background element
 
-  newLeftDistances = math.multiply(LeftDistances, w);
-
+  getNewLefts();
   drawLines();
   drawBlocks();
 
@@ -65,7 +75,9 @@ function setup(){
 
 function windowResized(){
   var w = windowWidth;
-  newLeftDistances = math.multiply(LeftDistances, w);
+  resizeCanvas(w,max(topDistances)+400);
+
+  getNewLefts();
   drawLines();
   drawBlocks();
 }
