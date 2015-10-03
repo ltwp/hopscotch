@@ -15,6 +15,7 @@ $(document).ready(function(){
   }
 
   $('.cover').hover(function(){
+    // When you hover over an image block, give translucent overlay.
     $(this).css("background-color","rgba(255,255,255,0.3)");
     $(this).css("color","rgba(0,0,0,1)");
   },function(){
@@ -30,10 +31,17 @@ $(document).ready(function(){
 
   });
 
+  $('#p5').click(function(){
+    console.log("hey");
+
+    //var overlay_id = $(this).parents("#p5.display");
+    $('.display').css("display","none");
+
+  });
+
   $('.close').click(function(){
 
-    var overlay_id = $(this).parents(".display");
-    overlay_id.css("display","none");
+    $('.display').css("display","none");
 
   });
 
