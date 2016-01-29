@@ -26,7 +26,9 @@
       w = 600;
     }
 
-    newLeftDistances = math.multiply(leftDistances, w);
+    for(i=0; i<leftDistances.length; i++){
+      newLeftDistances[i] = leftDistances[i]*w;
+    }
   }
 
   /////////////////////////////////////////////////////////
