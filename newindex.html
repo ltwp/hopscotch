@@ -17,25 +17,45 @@
 
 
         $(document).ready(function(){
+            var w = $(window).width(); // necessary for left-positioning, which are in %s of total width. 
+            var n_blocks = $('.block').length;
+            var block_width = $('.block').width()
+            console.log(block_width);
 
             function draw_paths(){
                 // draw_paths.js will place choose block locations and draw lines, returning block locations.
                 var block_locations = [];
-
-                var n_blocks = $('.block').length;
+                
                 var n_lines = n_blocks-1;
 
                 // Ordered pairs in TOP, LEFT
                 // in PIXEL / PERCENTAGE amounts
 
-                block_locations[1] = 50;
-                block_locations[2] = 0.5;
+                block_locations[0] = 100;
+                block_locations[1] = 0.5;
+                block_locations[2] = 300;
+                block_locations[3] = 0.5;
+                block_locations[4] = 500;
+                block_locations[5] = 0.5;
+                block_locations[6] = 700;
+                block_locations[7] = 0.5;
+                block_locations[8] = 900;
+                block_locations[9] = 0.5;
+                block_locations[10] = 1100;
+                block_locations[11] = 0.5;
+                block_locations[12] = 1300;
+                block_locations[13] = 0.5;
 
                 return block_locations;
             }
 
             var block_locations = draw_paths();
-            //console.log(block_locations);
+            console.log(block_locations);
+
+            for(i=0; i<=n_blocks; i++){
+                $('.block').eq(i).css("top",block_locations[i*2]);
+                $('.block').eq(i).css("left",block_locations[i*2+1]*w - block_width/2);
+            }
 
         });
       </script>
@@ -83,6 +103,7 @@
                 top: 0;
                 left: 0;
             }
+
             #blocks{
                 z-index: 10;
                 position: absolute;
@@ -91,10 +112,12 @@
             }
             .block{
                 width: 300px;
+                position: absolute;
             }
             .block img{
                 width: 300px;
             }
+            ''
             #overlay{
                 z-index: 2;
             }
@@ -110,31 +133,31 @@
 
         <div id="blocks">
 
-            <div class="block" id="block_0">
+            <div class="block">
                 <h1><a href="">Hopscotch</a></h1>
             </div>
 
-            <div class="block" id="block_1">
+            <div class="block">
                 Hopscotch is an overalls project.
             </div>
 
-            <div class="block" id="block_2">
-                <img src="images/layla.jpg" title='See pair No.1: Layla.' />
+            <div class="block">
+                <img src="images/layla.jpg" title='Pair No.1: Layla.' />
             </div>
 
-            <div class="block" id="block_3">
-                <img src="images/avery.jpg" title='See pair No.2: Avery.' />
+            <div class="block">
+                <img src="images/avery.jpg" title='Pair No.2: Avery.' />
             </div>
 
-            <div class="block" id="block_4">
+            <div class="block">
                 <h1><a href="">Process</a></h1>
             </div>
 
-            <div class="block" id="block_5">
+            <div class="block">
                 <h1><a href="">About</a></h1>
             </div>
 
-            <div class="block" id="block_6">
+            <div class="block">
                 &copy; Hopscotch. Thanks, <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Peter Mendelsund</a>, the <a href="http://www.brown.edu/academics/creative-arts-council/">Brown CAC</a>, Jordan Beard, Polina Godz, and all our friends.
             </div>
 
