@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Hopscotch</title>
-        
+
         <script src="jquery-1.12.0.min.js"></script>
         <script>
         // Google Analytics Tracking Script
@@ -13,12 +13,34 @@
             ga('create', 'UA-73402005-1', 'auto');
             ga('send', 'pageview');
         </script>
+        <script>
 
-        <script src="sketch_4.js"></script>
-        <script src="dom.js"></script>
+
+        $(document).ready(function(){
+
+            function draw_paths(){
+                // draw_paths.js will place choose block locations and draw lines, returning block locations.
+                var block_locations = [];
+
+                var n_blocks = $('.block').length;
+                var n_lines = n_blocks-1;
+
+                // Ordered pairs in TOP, LEFT
+                // in PIXEL / PERCENTAGE amounts
+
+                block_locations[1] = 50;
+                block_locations[2] = 0.5;
+
+                return block_locations;
+            }
+
+            var block_locations = draw_paths();
+            //console.log(block_locations);
+
+        });
+      </script>
 
         <link rel="stylesheet" src="http://meyerweb.com/eric/tools/css/reset/reset.css">
-
         <style>
 
             @font-face {
@@ -40,6 +62,18 @@
                 padding: 1px;
             }
 
+            h1{
+                font-size: 38px;
+                font-weight: 300;
+                letter-spacing: .14em;
+                width: 100%;
+                text-align: center;
+            }
+            h1 a{
+                text-decoration: none;
+                background: white;
+            }
+
             #lines{
                 /* SVG element */
                 z-index: 0;
@@ -50,7 +84,10 @@
                 left: 0;
             }
             #blocks{
-                z-index: 1;
+                z-index: 10;
+                position: absolute;
+                top: 0;
+                left: 0;
             }
             .block{
                 width: 300px;
@@ -61,19 +98,14 @@
             #overlay{
                 z-index: 2;
             }
-            
+
 
         </style>
-
     </head>
     <body>
-        
+
         <svg id="lines" xmlns="http://www.w3.org/2000/svg">
-
-            <path id="path_0" stroke="#000000" fill-opacity="0" stroke-width="2" d="M100,250 c0,-150 300,-180 300,50" />
-            <!-- path... d="M#,# c#,# #,# #,#" 
-                    start point x,y ; relative x,y of first control, second control, end point x,y -->
-
+            <!-- SVG lines between content blocks will be inserted here. -->
         </svg>
 
         <div id="blocks">
@@ -83,7 +115,7 @@
             </div>
 
             <div class="block" id="block_1">
-                Hopscotch is an overalls project. 
+                Hopscotch is an overalls project.
             </div>
 
             <div class="block" id="block_2">
@@ -99,18 +131,18 @@
             </div>
 
             <div class="block" id="block_5">
-                <h1><a href="">About/a></h1>
+                <h1><a href="">About</a></h1>
             </div>
 
             <div class="block" id="block_6">
-                &copy; Hopscotch. Thanks, <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Peter Mendelsund</a>, the <a href="http://www.brown.edu/academics/creative-arts-council/">Brown CAC</a>, Jordan Beard, Polina Godz, and all our friends. 
+                &copy; Hopscotch. Thanks, <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Peter Mendelsund</a>, the <a href="http://www.brown.edu/academics/creative-arts-council/">Brown CAC</a>, Jordan Beard, Polina Godz, and all our friends.
             </div>
 
 
             <div id="overlay">
             </div>
         </div>
-        
+
 
     </body>
 
