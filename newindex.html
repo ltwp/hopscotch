@@ -19,6 +19,7 @@
 
         $(document).ready(function(){
             var w = $(window).width(); // necessary for left-positioning, which are in %s of total width. 
+            var h = $(document).height();
             var n_blocks = $('.block').length;
             var n_lines = n_blocks-1;
             var block_width = $('.block').width()
@@ -52,12 +53,19 @@
 
             var block_locations = arrange_blocks();
             //console.log(block_locations);
-            var draw = SVG('lines').size('100%','100%');
+            var draw = SVG('lines').size('100%',h);
             // let's draw some lines!
-            for(i=0; i<=n_lines; i++){
-                //var path_string = '<path d="m100,100 c100,100 -100,-100 '+block_locations[(i+1)*2+1]+','+block_locations[(i+1)*2]+'" />';
-                //$("#lines").append(path_string);
-                draw.path('m 100,100 c100,100 -100,-100 '+block_locations[(i+1)*2+1]+','+block_locations[(i+1)*2]);
+            for(i=0; i<n_lines; i++){
+                var string = 'm ';
+                string = string+block_locations[i*2+1]+',';
+                string = string+block_locations[i*2]+' C ';
+                string = string+(block_locations[i*2+1]+100)+',';
+                string = string+(block_locations[i*2]+100)+' ';
+                string = string+(block_locations[(i+1)*2+1]-100)+',';
+                string = string+(block_locations[(i+1)*2]-100)+' ';
+                string = string+block_locations[(i+1)*2+1]+','+block_locations[(i+1)*2];
+                console.log(string);
+                draw.path(string);
             }
             
 
@@ -130,10 +138,10 @@
             }
 
             #lines{
-                /* SVG element */
+                /* SVG stuff in here */
                 z-index: 0;
                 width: 100%;
-                min-height: 800px;
+                height: 2500px;
                 position: absolute;
                 top: 0;
                 left: 0;
