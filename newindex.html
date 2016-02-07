@@ -55,16 +55,19 @@
             //console.log(block_locations);
             var draw = SVG('lines').size('100%',h);
             // let's draw some lines!
+            var x_control_radius = 150;
+            var y_control_radius = 150;
             for(i=0; i<n_lines; i++){
                 var string = 'm ';
+                // Construct big cubic bezier path. X,Y coords of first anchor, first control, second control, second anchor. 
                 string = string+block_locations[i*2+1]+',';
                 string = string+block_locations[i*2]+' C ';
-                string = string+(block_locations[i*2+1]+100)+',';
-                string = string+(block_locations[i*2]+100)+' ';
-                string = string+(block_locations[(i+1)*2+1]-100)+',';
-                string = string+(block_locations[(i+1)*2]-100)+' ';
+                string = string+(block_locations[i*2+1]+Math.floor((Math.random()-0.5)*2*x_control_radius))+',';
+                string = string+(block_locations[i*2]+Math.floor((Math.random()-0)*y_control_radius))+' ';
+                string = string+(block_locations[(i+1)*2+1]-Math.floor((Math.random()-0.5)*2*x_control_radius))+',';
+                string = string+(block_locations[(i+1)*2]-Math.floor((Math.random()-0)*y_control_radius))+' ';
                 string = string+block_locations[(i+1)*2+1]+','+block_locations[(i+1)*2];
-                console.log(string);
+                //console.log(string);
                 draw.path(string);
             }
             
@@ -95,6 +98,13 @@
                 $("#overlay_"+clicked_id).css("display","block");
                 $("#anti_overlay").css("display","block");
             });
+            $('.info_block').click(function(){
+                var clicked_id = $(this).attr("id");
+                $("#overlay_"+clicked_id).css("display","block");
+                $("#anti_overlay").css("display","block");
+            });
+
+            // And click out of overlay when you want. 
             $('#anti_overlay').click(function(){
                 $('.overlay').css("display","none");
                 $('#anti_overlay').css("display","none");
@@ -178,6 +188,9 @@
                 cursor: pointer;
                 font-size: 25px;
             }
+            .info_block{
+                cursor: pointer;
+            }
 
             .overlay{
                 display: none;
@@ -257,11 +270,11 @@
             </div>
 
             <div class="block">
-                <h1><a href="">Process</a></h1>
+                <h1 class="info_block" id="process">Process</h1>
             </div>
 
             <div class="block">
-                <h1><a href="">About</a></h1>
+                <h1 class="info_block" id="about">About</h1>
             </div>
 
             <div class="block">
@@ -285,6 +298,12 @@
                 <img src="images/avery/2.JPG" />
                 <img src="images/avery/3.JPG" />
                 <img src="images/avery/4.JPG" />
+            </div>
+
+            <div class="overlay" id="overlay_process">
+                sup, process stuff!
+            </div>
+            <div class="overlay" id="overlay_about">
             </div>
         </div>
 
