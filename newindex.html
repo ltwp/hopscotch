@@ -29,21 +29,12 @@
 
                 // Ordered pairs in TOP, LEFT
                 // in PIXEL / PERCENTAGE amounts
-
-                block_locations[0] = 100;
-                block_locations[1] = 0.5;
-                block_locations[2] = 300;
-                block_locations[3] = 0.5;
-                block_locations[4] = 500;
-                block_locations[5] = 0.5;
-                block_locations[6] = 700;
-                block_locations[7] = 0.5;
-                block_locations[8] = 900;
-                block_locations[9] = 0.5;
-                block_locations[10] = 1100;
-                block_locations[11] = 0.5;
-                block_locations[12] = 1300;
-                block_locations[13] = 0.5;
+                var block_separation = 350;
+                var variable_block_separation = 75;
+                for(i=0; i<=n_blocks; i++){
+                    block_locations[2*i] = 100+block_separation*i+Math.floor((Math.random()-0.5)*variable_block_separation);
+                    block_locations[2*i+1] = 0.2+Math.random()*0.5;
+                }
 
                 return block_locations;
             }
@@ -255,9 +246,21 @@
 
 
             <div class="overlay" id="overlay_layla">
+                <img src="images/layla/1.JPG" />
+                <img src="images/layla/2.JPG" />
+                <img src="images/layla/3.JPG" />
+                <img src="images/layla/4.JPG" />
+                <img src="images/layla/5.JPG" />
+                <img src="images/layla/6.JPG" />
+                <img src="images/layla/7.JPG" />
+                <img src="images/layla/8.JPG" />
             </div>
 
             <div class="overlay" id="overlay_avery">
+                <img src="images/avery/1.JPG" />
+                <img src="images/avery/2.JPG" />
+                <img src="images/avery/3.JPG" />
+                <img src="images/avery/4.JPG" />
             </div>
         </div>
 
