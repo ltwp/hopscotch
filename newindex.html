@@ -20,6 +20,7 @@
             var w = $(window).width(); // necessary for left-positioning, which are in %s of total width. 
             var n_blocks = $('.block').length;
             var block_width = $('.block').width()
+            var block_height = 70; // kinda artiberary lol
 
             function draw_paths(){
                 // draw_paths.js will place choose block locations and draw lines, returning block locations.
@@ -28,42 +29,49 @@
                 var n_lines = n_blocks-1;
 
                 // Ordered pairs in TOP, LEFT
-                // in PIXEL / PERCENTAGE amounts
+                // in PIXEL, PERCENTAGE amounts respectively. 
                 var block_separation = 350;
                 var variable_block_separation = 75;
                 for(i=0; i<=n_blocks; i++){
                     block_locations[2*i] = 100+block_separation*i+Math.floor((Math.random()-0.5)*variable_block_separation);
-                    block_locations[2*i+1] = 0.2+Math.random()*0.5;
+                    block_locations[2*i+1] = Math.floor((0.2+Math.random()*0.5)*w);
+
+                    $('.block').eq(i).css("top",block_locations[i*2] - block_height/2);
+                    $('.block').eq(i).css("left",block_locations[i*2+1] - block_width/2);
+
+                    // Now some rotation to the blocks. 
+                    var max_rotation = 30;
+                    var rotation = Math.floor((Math.random()-0.5)*max_rotation);
+                    $('.block').eq(i).css("transform","rotate("+rotation+"deg");
+                    $('.block').eq(i).css("-ms-transform","rotate("+rotation+"deg");
+                    $('.block').eq(i).css("-webkit-transform","rotate("+rotation+"deg");
+                }
+
+                // let's draw some lines!
+                for(i=0; i<=n_lines; i++){
+                    var path_string = '<path d="m100,100 c100,100 -100,-100 '+block_locations[(i+1)*2+1]+','+block_locations[(i+1)*2]+'" />';
+                    $("#lines").append(path_string);
                 }
 
                 return block_locations;
             }
 
-            var block_locations = draw_paths();
+            
             //console.log(block_locations);
+            draw_paths();
 
-            for(i=0; i<=n_blocks; i++){
-                $('.block').eq(i).css("top",block_locations[i*2]);
-                $('.block').eq(i).css("left",block_locations[i*2+1]*w - block_width/2);
-
-                // Now some rotation to the blocks. 
-                var max_rotation = 30;
-                var rotation = Math.floor((Math.random()-0.5)*max_rotation);
-                $('.block').eq(i).css("transform","rotate("+rotation+"deg");
-                $('.block').eq(i).css("-ms-transform","rotate("+rotation+"deg");
-                $('.block').eq(i).css("-webkit-transform","rotate("+rotation+"deg");
-            }
+            
 
             var n_imgs = $('img').length;
             // fit covers automatically to size of images. 
             for(var i = 0; i < n_imgs; i++){
                 var selected = $('img').eq(i);
-                var w = selected.width();
-                var h = selected.height();
+                var iw = selected.width();
+                var ih = selected.height();
                 var selected_parent = selected.parent();
-                selected_parent.children(".cover").css("width",w+"px");
-                selected_parent.children(".cover").css("height",h+"px");
-                selected_parent.children(".cover").css("line-height",h+"px");
+                selected_parent.children(".cover").css("width",iw+"px");
+                selected_parent.children(".cover").css("height",ih+"px");
+                selected_parent.children(".cover").css("line-height",ih+"px");
             }
             $('.cover').hover(function(){
                 // When you hover over an image block, give translucent overlay.
@@ -74,6 +82,7 @@
                 $(this).css("color","rgba(0,0,0,0)");
             });
 
+            // Bring overlay up. 
             $('.cover').click(function(){
                 var clicked_id = $(this).attr("id");
                 $("#overlay_"+clicked_id).css("display","block");
@@ -200,6 +209,12 @@
                 margin: 0px 10px;
             }
 
+            path{
+                fill-opacity: 0;
+                stroke: #000000;
+                fill: #000000;
+                stroke-width: 2;
+            }
 
         </style>
     </head>
@@ -207,6 +222,8 @@
 
         <svg id="lines" xmlns="http://www.w3.org/2000/svg">
             <!-- SVG lines between content blocks will be inserted here. -->
+            
+            
         </svg>
 
         <div id="blocks">
