@@ -3,6 +3,7 @@
         <title>Hopscotch</title>
 
         <script src="jquery-1.12.0.min.js"></script>
+        <script src="svg.min.js"></script>
         <script>
         // Google Analytics Tracking Script
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -19,14 +20,13 @@
         $(document).ready(function(){
             var w = $(window).width(); // necessary for left-positioning, which are in %s of total width. 
             var n_blocks = $('.block').length;
+            var n_lines = n_blocks-1;
             var block_width = $('.block').width()
             var block_height = 70; // kinda artiberary lol
 
-            function draw_paths(){
-                // draw_paths.js will place choose block locations and draw lines, returning block locations.
+            function arrange_blocks(){
+                // arrange_blocks will place blocks, returning block locations.
                 var block_locations = [];
-                
-                var n_lines = n_blocks-1;
 
                 // Ordered pairs in TOP, LEFT
                 // in PIXEL, PERCENTAGE amounts respectively. 
@@ -47,19 +47,18 @@
                     $('.block').eq(i).css("-webkit-transform","rotate("+rotation+"deg");
                 }
 
-                // let's draw some lines!
-                for(i=0; i<=n_lines; i++){
-                    var path_string = '<path d="m100,100 c100,100 -100,-100 '+block_locations[(i+1)*2+1]+','+block_locations[(i+1)*2]+'" />';
-                    $("#lines").append(path_string);
-                }
-
-                return block_locations;
+                return block_locations
             }
 
-            
+            var block_locations = arrange_blocks();
             //console.log(block_locations);
-            draw_paths();
-
+            var draw = SVG('lines').size('100%','100%');
+            // let's draw some lines!
+            for(i=0; i<=n_lines; i++){
+                //var path_string = '<path d="m100,100 c100,100 -100,-100 '+block_locations[(i+1)*2+1]+','+block_locations[(i+1)*2]+'" />';
+                //$("#lines").append(path_string);
+                draw.path('m 100,100 c100,100 -100,-100 '+block_locations[(i+1)*2+1]+','+block_locations[(i+1)*2]);
+            }
             
 
             var n_imgs = $('img').length;
@@ -220,11 +219,11 @@
     </head>
     <body>
 
-        <svg id="lines" xmlns="http://www.w3.org/2000/svg">
+        <div id="lines">
             <!-- SVG lines between content blocks will be inserted here. -->
             
             
-        </svg>
+        </div>
 
         <div id="blocks">
 
