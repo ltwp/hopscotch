@@ -1,315 +1,335 @@
 <html>
-    <head>
-        <title>Hopscotch</title>
+  <head>
+    <title>Hopscotch</title>
 
-        <script src="jquery-1.12.0.min.js"></script>
-        <script src="svg.min.js"></script>
-        <script>
-        // Google Analytics Tracking Script
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <!-- To-do list:
+Get infinite Scrolling
+Layout for overlay text
+Splash film work -->
 
-            ga('create', 'UA-73402005-1', 'auto');
-            ga('send', 'pageview');
-        </script>
-        <script>
+    <script src="jquery-1.12.0.min.js"></script>
+    <script src="svg.min.js"></script>
+    <script>
+      // Google Analytics Tracking Script
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-73402005-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script>
 
 
-        $(document).ready(function(){
-            var w = $(window).width(); // necessary for left-positioning, which are in %s of total width. 
-            var h = $(document).height();
-            var n_blocks = $('.block').length;
-            var n_lines = n_blocks-1;
-            var block_width = $('.block').width()
-            var block_height = 70; // kinda artiberary lol
+      $(document).ready(function(){
+        var w = $(window).width(); // necessary for left-positioning, which are in %s of total width.
+        var h = $(document).height();
+        var n_blocks = $('.block').length;
+        var n_lines = n_blocks-1;
+        var block_width = $('.block').width()
+        var block_height = 70; // kinda artiberary lol
 
-            function arrange_blocks(){
-                // arrange_blocks will place blocks, returning block locations.
-                var block_locations = [];
+        function arrange_blocks(){
+          // arrange_blocks will place blocks, returning block locations.
+          var block_locations = [];
 
-                // Ordered pairs in TOP, LEFT
-                // in PIXEL, PERCENTAGE amounts respectively. 
-                var block_separation = 350;
-                var variable_block_separation = 75;
-                for(i=0; i<=n_blocks; i++){
-                    block_locations[2*i] = 100+block_separation*i+Math.floor((Math.random()-0.5)*variable_block_separation);
-                    block_locations[2*i+1] = Math.floor((0.2+Math.random()*0.5)*w);
+          // Ordered pairs in TOP, LEFT
+          // in PIXEL, PERCENTAGE amounts respectively.
+          var block_separation = 350;
+          var variable_block_separation = 75;
+          for(i=0; i<=n_blocks; i++){
+            block_locations[2*i] = 100+block_separation*i+Math.floor((Math.random()-0.5)*variable_block_separation);
+            block_locations[2*i+1] = Math.floor((0.2+Math.random()*0.5)*w);
 
-                    $('.block').eq(i).css("top",block_locations[i*2] - block_height/2);
-                    $('.block').eq(i).css("left",block_locations[i*2+1] - block_width/2);
+            $('.block').eq(i).css("top",block_locations[i*2] - block_height/2);
+            $('.block').eq(i).css("left",block_locations[i*2+1] - block_width/2);
 
-                    // Now some rotation to the blocks. 
-                    var max_rotation = 30;
-                    var rotation = Math.floor((Math.random()-0.5)*max_rotation);
-                    $('.block').eq(i).css("transform","rotate("+rotation+"deg");
-                    $('.block').eq(i).css("-ms-transform","rotate("+rotation+"deg");
-                    $('.block').eq(i).css("-webkit-transform","rotate("+rotation+"deg");
-                }
+            // Now some rotation to the blocks.
+            var max_rotation = 30;
+            var rotation = Math.floor((Math.random()-0.5)*max_rotation);
+            $('.block').eq(i).css("transform","rotate("+rotation+"deg");
+            $('.block').eq(i).css("-ms-transform","rotate("+rotation+"deg");
+            $('.block').eq(i).css("-webkit-transform","rotate("+rotation+"deg");
+          }
 
-                return block_locations
-            }
+          return block_locations
+        }
 
-            var block_locations = arrange_blocks();
-            //console.log(block_locations);
-            var draw = SVG('lines').size('100%',h);
-            // let's draw some lines!
-            var x_control_radius = 150;
-            var y_control_radius = 150;
-            for(i=0; i<n_lines; i++){
-                var string = 'm ';
-                // Construct big cubic bezier path. X,Y coords of first anchor, first control, second control, second anchor. 
-                string = string+block_locations[i*2+1]+',';
-                string = string+block_locations[i*2]+' C ';
-                string = string+(block_locations[i*2+1]+Math.floor((Math.random()-0.5)*2*x_control_radius))+',';
-                string = string+(block_locations[i*2]+Math.floor((Math.random()-0)*y_control_radius))+' ';
-                string = string+(block_locations[(i+1)*2+1]-Math.floor((Math.random()-0.5)*2*x_control_radius))+',';
-                string = string+(block_locations[(i+1)*2]-Math.floor((Math.random()-0)*y_control_radius))+' ';
-                string = string+block_locations[(i+1)*2+1]+','+block_locations[(i+1)*2];
-                //console.log(string);
-                draw.path(string);
-            }
-            
+        var block_locations = arrange_blocks();
+        //console.log(block_locations);
+        var draw = SVG('lines').size('100%',h);
+        // let's draw some lines!
+        var x_control_radius = 75;
+        var y_control_radius = 75;
+        var control_radius_min = 100;
+        var old_control_x = block_locations[1]+Math.floor((Math.random()-0.5)*2*x_control_radius+control_radius_min);
+        var old_control_y = block_locations[0]+Math.floor((Math.random()-0)*y_control_radius+control_radius_min);
 
-            var n_imgs = $('img').length;
-            // fit covers automatically to size of images. 
-            for(var i = 0; i < n_imgs; i++){
-                var selected = $('img').eq(i);
-                var iw = selected.width();
-                var ih = selected.height();
-                var selected_parent = selected.parent();
-                selected_parent.children(".cover").css("width",iw+"px");
-                selected_parent.children(".cover").css("height",ih+"px");
-                selected_parent.children(".cover").css("line-height",ih+"px");
-            }
-            $('.cover').hover(function(){
-                // When you hover over an image block, give translucent overlay.
-                $(this).css("background-color","rgba(255,255,255,0.3)");
-                $(this).css("color","rgba(0,0,0,1)");
-            },function(){
-                $(this).css("background-color","rgba(255,255,255,0)");
-                $(this).css("color","rgba(0,0,0,0)");
-            });
+        for(i=0; i<n_lines; i++){
+          var string = 'm ';
+          // Construct big cubic bezier path. X,Y coords of first anchor, first control, second control, second anchor.
+          string = string+block_locations[i*2+1]+','; // first anchor X
+          string = string+block_locations[i*2]+' C '; // first anchor Y
+          //string = string+(block_locations[i*2+1]+Math.floor((Math.random()-0.5)*2*x_control_radius))+',';
+          //string = string+(block_locations[i*2]+Math.floor((Math.random()-0)*y_control_radius))+' ';
+          if(i==0){
+            string = string+old_control_x+',';
+            string = string+old_control_y+' ';
+          }else{
+            var diff_x = block_locations[i*2+1] - old_control_x;
+            var diff_y = block_locations[i*2] - old_control_y;
+            string = string+(block_locations[i*2+1]+diff_x)+',';
+            string = string+(block_locations[i*2]+diff_y)+' ';
+          }
+          old_control_x = block_locations[(i+1)*2+1]-Math.floor((Math.random()-0.5)*2*x_control_radius+control_radius_min);
+          old_control_y = block_locations[(i+1)*2]-Math.floor((Math.random()-0)*y_control_radius+control_radius_min);
+          string = string+old_control_x+','; // new control X
+          string = string+old_control_y+' '; // new control Y
+          string = string+block_locations[(i+1)*2+1]+','+block_locations[(i+1)*2]; // second anchor X and Y
+          //console.log(string);
+          draw.path(string);
+        }
 
-            // Bring overlay up. 
-            $('.cover').click(function(){
-                var clicked_id = $(this).attr("id");
-                $("#overlay_"+clicked_id).css("display","block");
-                $("#anti_overlay").css("display","block");
-            });
-            $('.info_block').click(function(){
-                var clicked_id = $(this).attr("id");
-                $("#overlay_"+clicked_id).css("display","block");
-                $("#anti_overlay").css("display","block");
-            });
 
-            // And click out of overlay when you want. 
-            $('#anti_overlay').click(function(){
-                $('.overlay').css("display","none");
-                $('#anti_overlay').css("display","none");
-            });
-
+        var n_imgs = $('img').length;
+        // fit covers automatically to size of images.
+        for(var i = 0; i < n_imgs; i++){
+          var selected = $('img').eq(i);
+          var iw = selected.width();
+          var ih = selected.height();
+          var selected_parent = selected.parent();
+          selected_parent.children(".cover").css("width",iw+"px");
+          selected_parent.children(".cover").css("height",ih+"px");
+          selected_parent.children(".cover").css("line-height",ih+"px");
+        }
+        $('.cover').hover(function(){
+          // When you hover over an image block, give translucent overlay.
+          $(this).css("background-color","rgba(255,255,255,0.3)");
+          $(this).css("color","rgba(0,0,0,1)");
+        },function(){
+          $(this).css("background-color","rgba(255,255,255,0)");
+          $(this).css("color","rgba(0,0,0,0)");
         });
-      </script>
 
-        <link rel="stylesheet" src="http://meyerweb.com/eric/tools/css/reset/reset.css">
-        <style>
+        // Bring overlay up.
+        $('.cover').click(function(){
+          var clicked_id = $(this).attr("id");
+          $("#overlay_"+clicked_id).css("display","block");
+          $("#anti_overlay").css("display","block");
+        });
+        $('.info_block').click(function(){
+          var clicked_id = $(this).attr("id");
+          $("#overlay_"+clicked_id).css("display","block");
+          $("#anti_overlay").css("display","block");
+        });
 
-            @font-face {
-                font-family: 'Apercu';
-                src: url(ApercuProRegular.ttf) format("truetype");
-            }
+        // And click out of overlay when you want.
+        $('#anti_overlay').click(function(){
+          $('.overlay').css("display","none");
+          $('#anti_overlay').css("display","none");
+        });
 
-            body{
-                font-family: 'Apercu',sans-serif;
-                font-weight: 300;
-                text-align: center;
-                line-height: 180%;
-            }
+      });
+    </script>
 
-            a{
-                text-decoration: none;
-                color: black;
-                background: #ccffee;
-                padding: 1px;
-            }
+    <link rel="stylesheet" src="http://meyerweb.com/eric/tools/css/reset/reset.css">
+    <style>
 
-            h1{
-                font-size: 38px;
-                font-weight: 300;
-                letter-spacing: .14em;
-                width: 100%;
-                text-align: center;
-            }
-            h1 a{
-                text-decoration: none;
-                background: white;
-            }
+      @font-face {
+        font-family: 'Apercu';
+        src: url(ApercuProRegular.ttf) format("truetype");
+      }
 
-            #lines{
-                /* SVG stuff in here */
-                z-index: 0;
-                width: 100%;
-                height: 2500px;
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
+      body{
+        font-family: 'Apercu',sans-serif;
+        font-weight: 300;
+        text-align: center;
+        line-height: 180%;
+      }
 
-            #blocks{
-                z-index: 10;
-                position: absolute;
-                top: 0;
-                left: 0;
-                
-            }
-            .block{
-                width: 300px;
-                position: absolute;
-                padding: 10px;
-                background: white;
-            }
-            .block img{
-                width: 300px;
-                background: #ccffee;
-                padding: 4px;
-            }
-            
-            .cover{
-                /* these cover up images for text overlay */
-                z-index: 15;
-                background-color: rgba(255,255,255,0);
-                color: rgba(225,225,225,0);
-                padding: 10px;
-                position: absolute;
-                left: 0;
-                top: 0;
-                cursor: pointer;
-                font-size: 25px;
-            }
-            .info_block{
-                cursor: pointer;
-            }
+      a{
+        text-decoration: none;
+        color: black;
+        background: #ccffee;
+        padding: 1px;
+      }
 
-            .overlay{
-                display: none;
-                width: 100%;
-                height: 500px;
-                white-space: nowrap;
-                overflow-x: scroll;
-                overflow-y: hidden;
-                position: fixed;
-                top: 5%;
-                left: 0px;
-                z-index: 50;
-                background-color: rgba(255,255,255,1);
-                padding: 20px;
-            }
-            #anti_overlay{
-                /* invisible box that allows you to click-out of overlay */
-                display: none;
-                width: 100%;
-                height: 100%;
-                position: fixed;
-                top: 0;
-                left: 0;
-                background-color: rgba(0,0,0,0);
-            }
+      h1{
+        font-size: 38px;
+        font-weight: 300;
+        letter-spacing: 0.1em;
+        text-align: center;
+      }
+      h1 a{
+        text-decoration: none;
+        background: white;
+      }
 
-            .overlay::-webkit-scrollbar {
-                display: none;
-            }
+      #lines{
+        /* SVG stuff in here */
+        z-index: 0;
+        width: 100%;
+        height: 2500px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
 
-            .overlay img{
-                height: 500px;
-                width: auto;
-                display: inline-block;
-                z-index: 5;
-                margin: 0px 10px;
-            }
+      #blocks{
+        z-index: 10;
+        position: absolute;
+        top: 0;
+        left: 0;
 
-            path{
-                fill-opacity: 0;
-                stroke: #000000;
-                fill: #000000;
-                stroke-width: 2;
-            }
+      }
+      .block{
+        width: 300px;
+        position: absolute;
+        padding: 5px;
+        background: white;
+      }
+      .block img{
+        width: 300px;
+        background: #ccffee;
+        padding: 4px;
+      }
 
-        </style>
-    </head>
-    <body>
+      .cover{
+        /* these cover up images for text overlay */
+        z-index: 15;
+        background-color: rgba(255,255,255,0);
+        color: rgba(225,225,225,0);
+        padding: 10px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        cursor: pointer;
+        font-size: 25px;
+      }
+      .info_block{
+        cursor: pointer;
+      }
 
-        <div id="lines">
-            <!-- SVG lines between content blocks will be inserted here. -->
-            
-            
-        </div>
+      .overlay{
+        display: none;
+        width: 100%;
+        height: 500px;
+        white-space: nowrap;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        position: fixed;
+        top: 5%;
+        left: 0px;
+        z-index: 50;
+        background-color: rgba(255,255,255,1);
+        padding: 20px;
+        border-top: 2px solid #ccffee;
+        border-bottom: 2px solid #ccffee;
+      }
+      #anti_overlay{
+        /* invisible box that allows you to click-out of overlay */
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0,0);
+      }
 
-        <div id="blocks">
+      .overlay::-webkit-scrollbar {
+        display: none;
+      }
 
-            <div id="anti_overlay">
-            </div>
+      .overlay img{
+        height: 500px;
+        width: auto;
+        display: inline-block;
+        z-index: 5;
+        margin: 0px 10px;
+      }
 
-            <div class="block">
-                <h1><a href="">Hopscotch</a></h1>
-            </div>
+      path{
+        fill-opacity: 0;
+        stroke: #000000;
+        fill: #000000;
+        stroke-width: 2;
+      }
 
-            <div class="block">
-                Hopscotch is an overalls project.
-            </div>
+    </style>
+  </head>
+  <body>
 
-            <div class="block">
-                <img src="images/layla.jpg" title='Pair No.1, Layla.' />
-                <div class="cover" id="layla">Pair No.1, Layla</div>
-            </div>
-
-            <div class="block">
-                <img src="images/avery.jpg" title='Pair No.2, Avery.' />
-                <div class="cover" id="avery">Pair No.2, Avery</div>
-            </div>
-
-            <div class="block">
-                <h1 class="info_block" id="process">Process</h1>
-            </div>
-
-            <div class="block">
-                <h1 class="info_block" id="about">About</h1>
-            </div>
-
-            <div class="block">
-                &copy; Hopscotch. Thanks, <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Peter Mendelsund</a>, the <a href="http://www.brown.edu/academics/creative-arts-council/">Brown CAC</a>, Jordan Beard, Polina Godz, and all our friends.
-            </div>
+    <div id="lines">
+      <!-- SVG lines between content blocks will be inserted here. -->
 
 
-            <div class="overlay" id="overlay_layla">
-                <img src="images/layla/1.JPG" />
-                <img src="images/layla/2.JPG" />
-                <img src="images/layla/3.JPG" />
-                <img src="images/layla/4.JPG" />
-                <img src="images/layla/5.JPG" />
-                <img src="images/layla/6.JPG" />
-                <img src="images/layla/7.JPG" />
-                <img src="images/layla/8.JPG" />
-            </div>
+    </div>
 
-            <div class="overlay" id="overlay_avery">
-                <img src="images/avery/1.JPG" />
-                <img src="images/avery/2.JPG" />
-                <img src="images/avery/3.JPG" />
-                <img src="images/avery/4.JPG" />
-            </div>
+    <div id="blocks">
 
-            <div class="overlay" id="overlay_process">
-                sup, process stuff!
-            </div>
-            <div class="overlay" id="overlay_about">
-                We are <a href="http://ltwp.net">Lukas</a> and <a href="http://nathanzack.net">Nathan</a>, coming from math and literature backgrounds respectively, blah blah, words!.<br />
-                Hopscotch is made in Providence, Rhode Island. 
-            </div>
-        </div>
+      <div id="anti_overlay">
+      </div>
+
+      <div class="block">
+        <h1><a href="">Hopscotch</a></h1>
+      </div>
+
+      <div class="block">
+        Hopscotch is an overalls project.
+      </div>
+
+      <div class="block">
+        <img src="images/layla.jpg" title='Pair No.1, Layla.' />
+        <div class="cover" id="layla">Pair No.1, Layla</div>
+      </div>
+
+      <div class="block">
+        <img src="images/avery.jpg" title='Pair No.2, Avery.' />
+        <div class="cover" id="avery">Pair No.2, Avery</div>
+      </div>
+
+      <div class="block">
+        <h1 class="info_block" id="process">Process</h1>
+      </div>
+
+      <div class="block">
+        <h1 class="info_block" id="about">About</h1>
+      </div>
+
+      <div class="block">
+        &copy; Hopscotch. Thanks, <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Peter Mendelsund</a>, the <a href="http://www.brown.edu/academics/creative-arts-council/">Brown CAC</a>, Jordan Beard, Polina Godz, and all our friends.
+      </div>
 
 
-    </body>
+      <div class="overlay" id="overlay_layla">
+        <img src="images/layla/1.JPG" />
+        <img src="images/layla/2.JPG" />
+        <img src="images/layla/3.JPG" />
+        <img src="images/layla/4.JPG" />
+        <img src="images/layla/5.JPG" />
+        <img src="images/layla/6.JPG" />
+        <img src="images/layla/7.JPG" />
+        <img src="images/layla/8.JPG" />
+      </div>
+
+      <div class="overlay" id="overlay_avery">
+        <img src="images/avery/1.JPG" />
+        <img src="images/avery/2.JPG" />
+        <img src="images/avery/3.JPG" />
+        <img src="images/avery/4.JPG" />
+      </div>
+
+      <div class="overlay" id="overlay_process">
+        sup, process stuff!
+      </div>
+      <div class="overlay" id="overlay_about">
+        We are <a href="http://ltwp.net">Lukas</a> and <a href="http://nathanzack.net">Nathan</a>, coming from math and literature backgrounds respectively, blah blah, words!.<br />
+        Hopscotch is made in Providence, Rhode Island.
+      </div>
+    </div>
+
+  </body>
 
 </html>
