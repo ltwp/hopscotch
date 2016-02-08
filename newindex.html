@@ -4,8 +4,7 @@
 
     <!-- To-do list:
 Get infinite Scrolling
-Layout for overlay text
-Splash film work -->
+Layout for overlay text-->
 
     <script src="jquery-1.12.0.min.js"></script>
     <script src="svg.min.js"></script>
@@ -90,27 +89,6 @@ Splash film work -->
           //console.log(string);
           draw.path(string);
         }
-
-
-        var n_imgs = $('img').length;
-        // fit covers automatically to size of images.
-        for(var i = 0; i < n_imgs; i++){
-          var selected = $('img').eq(i);
-          var iw = selected.width();
-          var ih = selected.height();
-          var selected_parent = selected.parent();
-          selected_parent.children(".cover").css("width",iw+"px");
-          selected_parent.children(".cover").css("height",ih+"px");
-          selected_parent.children(".cover").css("line-height",ih+"px");
-        }
-        $('.cover').hover(function(){
-          // When you hover over an image block, give translucent overlay.
-          $(this).css("background-color","rgba(255,255,255,0.3)");
-          $(this).css("color","rgba(0,0,0,1)");
-        },function(){
-          $(this).css("background-color","rgba(255,255,255,0)");
-          $(this).css("color","rgba(0,0,0,0)");
-        });
 
         // Bring overlay up.
         $('.cover').click(function(){
@@ -214,7 +192,7 @@ Splash film work -->
       .overlay{
         display: none;
         width: 100%;
-        height: 500px;
+        height: 520px;
         white-space: nowrap;
         overflow-x: scroll;
         overflow-y: hidden;
@@ -223,7 +201,6 @@ Splash film work -->
         left: 0px;
         z-index: 50;
         background-color: rgba(255,255,255,1);
-        padding: 20px;
         border-top: 2px solid #ccffee;
         border-bottom: 2px solid #ccffee;
       }
@@ -247,7 +224,27 @@ Splash film work -->
         width: auto;
         display: inline-block;
         z-index: 5;
-        margin: 0px 10px;
+        padding: 10px;
+      }
+      .overlay p{
+        width: 100%;
+        margin: 85px auto;
+        height: 350px; /* total overlay height is 520px */
+      }
+      .overlay .text{
+        color: white;
+        position: absolute;
+        top: 420px;
+        left: 20px;
+      }
+      .overlay .name{
+        font-size: 25px;
+        color: white;
+        font-weight: bold;
+        position: absolute;
+        top: 370px;
+        left: 20px;
+        letter-spacing: 0.1em;
       }
 
       path{
@@ -304,6 +301,12 @@ Splash film work -->
 
 
       <div class="overlay" id="overlay_layla">
+        <div class="text">
+          Layla May Ehsan, 2015.
+        </div>
+        <div class="name">
+          Layla
+        </div>
         <img src="images/layla/1.JPG" />
         <img src="images/layla/2.JPG" />
         <img src="images/layla/3.JPG" />
@@ -315,6 +318,12 @@ Splash film work -->
       </div>
 
       <div class="overlay" id="overlay_avery">
+        <div class="text">
+          Avery Schuster, 2016.
+        </div>
+        <div class="name">
+          Avery
+        </div>
         <img src="images/avery/1.JPG" />
         <img src="images/avery/2.JPG" />
         <img src="images/avery/3.JPG" />
@@ -322,13 +331,40 @@ Splash film work -->
       </div>
 
       <div class="overlay" id="overlay_process">
-        sup, process stuff!
+        <p>
+          sup, process stuff!
+        </p>
       </div>
       <div class="overlay" id="overlay_about">
-        We are <a href="http://ltwp.net">Lukas</a> and <a href="http://nathanzack.net">Nathan</a>, coming from math and literature backgrounds respectively, blah blah, words!.<br />
-        Hopscotch is made in Providence, Rhode Island.
+        <p>
+          We are <a href="http://ltwp.net">Lukas</a> and <a href="http://nathanzack.net">Nathan</a>, coming from math and literature backgrounds respectively, blah blah, words!.<br />
+          Hopscotch is made in Providence, Rhode Island.
+        </p>
       </div>
     </div>
+
+    <script>
+      // code at end so images load fully before covers are sized.
+    var n_imgs = $('img').length;
+        // fit covers automatically to size of images.
+        for(var i = 0; i < n_imgs; i++){
+          var selected = $('img').eq(i);
+          var iw = selected.width();
+          var ih = selected.height();
+          var selected_parent = selected.parent();
+          selected_parent.children(".cover").css("width",iw+"px");
+          selected_parent.children(".cover").css("height",ih+"px");
+          selected_parent.children(".cover").css("line-height",ih+"px");
+        }
+        $('.cover').hover(function(){
+          // When you hover over an image block, give translucent overlay.
+          $(this).css("background-color","rgba(255,255,255,0.3)");
+          $(this).css("color","rgba(0,0,0,1)");
+        },function(){
+          $(this).css("background-color","rgba(255,255,255,0)");
+          $(this).css("color","rgba(0,0,0,0)");
+        });
+    </script>
 
   </body>
 
