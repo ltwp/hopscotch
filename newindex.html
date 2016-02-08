@@ -2,10 +2,6 @@
   <head>
     <title>Hopscotch</title>
 
-    <!-- To-do list:
-Get infinite Scrolling
-Layout for overlay text-->
-
     <script src="jquery-1.12.0.min.js"></script>
     <script src="svg.min.js"></script>
     <script>
@@ -51,14 +47,12 @@ Layout for overlay text-->
             $('.block').eq(i).css("-ms-transform","rotate("+rotation+"deg");
             $('.block').eq(i).css("-webkit-transform","rotate("+rotation+"deg");
           }
-
           return block_locations
         }
 
+        // DRAWING LINES IN SVG USING CUBIC BEZIERS
         var block_locations = arrange_blocks();
-        //console.log(block_locations);
         var draw = SVG('lines').size('100%',h);
-        // let's draw some lines!
         var x_control_radius = 75;
         var y_control_radius = 75;
         var control_radius_min = 100;
@@ -72,7 +66,7 @@ Layout for overlay text-->
           string = string+block_locations[i*2]+' C '; // first anchor Y
           //string = string+(block_locations[i*2+1]+Math.floor((Math.random()-0.5)*2*x_control_radius))+',';
           //string = string+(block_locations[i*2]+Math.floor((Math.random()-0)*y_control_radius))+' ';
-          if(i==0){
+          if(i==0){ // if first loop
             string = string+old_control_x+',';
             string = string+old_control_y+' ';
           }else{
@@ -299,7 +293,6 @@ Layout for overlay text-->
         &copy; Hopscotch. Thanks, <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Peter Mendelsund</a>, the <a href="http://www.brown.edu/academics/creative-arts-council/">Brown CAC</a>, Jordan Beard, Polina Godz, and all our friends.
       </div>
 
-
       <div class="overlay" id="overlay_layla">
         <div class="text">
           Layla May Ehsan, 2015.
@@ -345,25 +338,41 @@ Layout for overlay text-->
 
     <script>
       // code at end so images load fully before covers are sized.
-    var n_imgs = $('img').length;
-        // fit covers automatically to size of images.
-        for(var i = 0; i < n_imgs; i++){
-          var selected = $('img').eq(i);
-          var iw = selected.width();
-          var ih = selected.height();
-          var selected_parent = selected.parent();
-          selected_parent.children(".cover").css("width",iw+"px");
-          selected_parent.children(".cover").css("height",ih+"px");
-          selected_parent.children(".cover").css("line-height",ih+"px");
+      var n_imgs = $('img').length;
+      // fit covers automatically to size of images.
+      for(var i = 0; i < n_imgs; i++){
+        var selected = $('img').eq(i);
+        var iw = selected.width();
+        var ih = selected.height();
+        var selected_parent = selected.parent();
+        selected_parent.children(".cover").css("width",iw+"px");
+        selected_parent.children(".cover").css("height",ih+"px");
+        selected_parent.children(".cover").css("line-height",ih+"px");
+      }
+      $('.cover').hover(function(){
+        // When you hover over an image block, give translucent overlay.
+        $(this).css("background-color","rgba(255,255,255,0.3)");
+        $(this).css("color","rgba(0,0,0,1)");
+      },function(){
+        $(this).css("background-color","rgba(255,255,255,0)");
+        $(this).css("color","rgba(0,0,0,0)");
+      });
+
+
+      // Auto-jump up to top of page when scrolling...
+      var origDocHeight = 2500;
+      var viewportHeight = $(window).height();
+
+      $(document).scroll(function(){ // Detect scrolling
+
+        var scrollWindowPos = $(document).scrollTop(); // Store how far we have scrolled
+
+        // If we scrolled further then the original doc height, then scroll to the top
+        if(scrollWindowPos >= (origDocHeight-viewportHeight)) {
+          //$(document).scrollTop(0);
         }
-        $('.cover').hover(function(){
-          // When you hover over an image block, give translucent overlay.
-          $(this).css("background-color","rgba(255,255,255,0.3)");
-          $(this).css("color","rgba(0,0,0,1)");
-        },function(){
-          $(this).css("background-color","rgba(255,255,255,0)");
-          $(this).css("color","rgba(0,0,0,0)");
-        });
+
+      });
     </script>
 
   </body>
