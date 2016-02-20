@@ -3,34 +3,6 @@
     <title>Hopscotch: Avery</title>
     <link rel="stylesheet" src="http://meyerweb.com/eric/tools/css/reset/reset.css">
     <script src="jquery-1.12.0.min.js"></script>
-    <script>
-      function video_resize(){
-        var ratio_h = 0.56,
-            ratio_w = 100/56;
-        var window_width = $(window).width(),
-            window_height = $(window).height(),
-            adjusted_height = window_width * ratio_h,
-            adjusted_width = window_height * ratio_w;
-        if(adjusted_height < window_height){
-          var shift_width = ((window_width - adjusted_width)/2) + 'px';
-          $('#video').height(window_height).width(adjusted_width);
-          $('#video').css({
-            'margin-left':shift_width,
-            'margin-top':0
-          });
-        }else {
-          var shift_height = ((window_height - adjusted_height)/2) +'px';
-          $('#video').width(window_width).height(adjusted_height);
-          $('#video').css({
-            'margin-top':shift_height,
-            'margin-left':0
-          });
-        }
-      }
-
-      video_resize();
-      $(window).resize(video_resize);
-    </script>
     <style>
       body{
         margin: 0;
@@ -76,12 +48,38 @@
     </style>
   </head>
   <body>
-    <script>
-      video_resize();
-    </script>
-    <!--<div id="click_overlay">
+    <div id="click_overlay">
       <a href="newindex.html">Enter</a>
-    </div> -->
+    </div>
     <iframe id="video" src="https://player.vimeo.com/video/155462571?autoplay=1&amp;loop=1&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <script>
+      function video_resize(){
+        console.log('hey, resizin');
+        var ratio_h = 0.56,
+            ratio_w = 100/56;
+        var window_width = $(window).width(),
+            window_height = $(window).height(),
+            adjusted_height = window_width * ratio_h,
+            adjusted_width = window_height * ratio_w;
+        if(adjusted_height < window_height){
+          var shift_width = ((window_width - adjusted_width)/2) + 'px';
+          $('#video').height(window_height).width(adjusted_width);
+          $('#video').css({
+            'margin-left':shift_width,
+            'margin-top':0
+          });
+        }else {
+          var shift_height = ((window_height - adjusted_height)/2) +'px';
+          $('#video').width(window_width).height(adjusted_height);
+          $('#video').css({
+            'margin-top':shift_height,
+            'margin-left':0
+          });
+        }
+      }
+
+      video_resize();
+      $(window).resize(video_resize);
+    </script>
   </body>
 </html>
