@@ -159,6 +159,7 @@
         position: absolute;
         padding: 5px;
         background: white;
+        min-height: 100px;
       }
       .block img{
         width: 300px;
@@ -299,7 +300,7 @@
       </div>
 
       <div class="block" id="small">
-        &copy; Hopscotch 2016. Thanks to <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Mendelsund</a>, the <a href="http://www.brown.edu/academics/creative-arts-council/">CAC</a>, and our friends.
+        &copy; Hopscotch 2016. Thanks to <a href="http://jordibeard.com/">Jordan</a>, <a href='http://www.itsnicethat.com/articles/graphic-design-peter-mendelsund'>Mendelsund</a>, the <a href="http://www.brown.edu/academics/creative-arts-council/">CAC</a>, and our friends.
       </div>
 
       <div class="overlay" id="overlay_layla">
@@ -360,12 +361,15 @@
     <script>
     
       // code at end so images load fully before covers are sized.
-      var n_imgs = $('img').length;
+      var n_imgs = $('.block img').length;
       // fit covers automatically to size of images.
       for(var i = 0; i < n_imgs; i++){
-        var selected = $('img').eq(i);
-        var iw = selected.width();
+        var selected = $('.block img').eq(i);
+        var iw = selected.width(); // should be 300 based on css
         var ih = selected.height();
+        if(ih == 0){
+          ih = 200; // RN WE GOT 3:2 IMAGE RATIO... NOT SURE HOW TO FIX THIS RN 20.2.2016
+        }
         var selected_parent = selected.parent();
         selected_parent.children(".cover").css("width",iw+"px");
         selected_parent.children(".cover").css("height",ih+"px");
@@ -378,22 +382,6 @@
       },function(){
         $(this).css("background-color","rgba(255,255,255,0)");
         $(this).css("color","rgba(0,0,0,0)");
-      });
-
-
-      // Auto-jump up to top of page when scrolling...
-      var origDocHeight = 2500;
-      var viewportHeight = $(window).height();
-
-      $(document).scroll(function(){ // Detect scrolling
-
-        var scrollWindowPos = $(document).scrollTop(); // Store how far we have scrolled
-
-        // If we scrolled further then the original doc height, then scroll to the top
-        if(scrollWindowPos >= (origDocHeight-viewportHeight)) {
-          //$(document).scrollTop(0);
-        }
-
       });
     </script>
 
