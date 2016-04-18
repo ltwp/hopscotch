@@ -25,16 +25,18 @@
         var n_blocks = $('.block').length;
         var n_lines = n_blocks-1;
         var block_width = $('.block').width()
-        var block_height = 70; // kinda artiberary lol
+        var block_height = 70; // In Pixels.
+        var block_separation = 350; // In Pixels.
+        var variable_block_separation = 75; // In Pixels.
+        var max_rotation = 30; // In degrees.
 
         function arrange_blocks(){
-          // arrange_blocks will place blocks, returning block locations.
+          // arrange_blocks will find locations for blocks based on window size and return locations.
           var block_locations = [];
 
           // Ordered pairs in TOP, LEFT
           // in PIXEL, PERCENTAGE amounts respectively.
-          var block_separation = 350;
-          var variable_block_separation = 75;
+
           for(i=0; i<=n_blocks; i++){
             block_locations[2*i] = 100+block_separation*i+Math.floor((Math.random()-0.5)*variable_block_separation);
             block_locations[2*i+1] = Math.floor((0.5+0.8*(Math.random()-0.5))*w);
@@ -43,7 +45,7 @@
             $('.block').eq(i).css("left",block_locations[i*2+1] - block_width/2);
 
             // Now some rotation to the blocks.
-            var max_rotation = 30;
+
             var rotation = Math.floor((Math.random()-0.5)*max_rotation);
             $('.block').eq(i).css("transform","rotate("+rotation+"deg");
             $('.block').eq(i).css("-ms-transform","rotate("+rotation+"deg");
@@ -140,7 +142,7 @@
       }
 
       #lines{
-        /* SVG stuff in here */
+        /* SVG styling in here */
         z-index: 0;
         width: 100%;
         height: 2500px;
@@ -151,7 +153,7 @@
 
       #blocks{
         z-index: 10;
-        position: absolute;
+        position: absolute; /* Will be set by JS. */
         top: 0;
         left: 0;
 
@@ -272,6 +274,7 @@
     <div id="blocks">
 
       <div id="anti_overlay">
+        <!-- clicking this hides the overlay. -->
       </div>
 
       <div class="block">
@@ -361,16 +364,16 @@
     </div>
 
     <script>
-    
-      // code at end so images load fully before covers are sized.
+
+      // Code at end so images load fully before covers are sized.
       var n_imgs = $('.block img').length;
       // fit covers automatically to size of images.
       for(var i = 0; i < n_imgs; i++){
         var selected = $('.block img').eq(i);
-        var iw = selected.width(); // should be 300 based on css
+        var iw = selected.width(); // should be 300 based on css, but for generality...
         var ih = selected.height();
         if(ih == 0){
-          ih = 200; // RN WE GOT 3:2 IMAGE RATIO... NOT SURE HOW TO FIX THIS RN 20.2.2016
+          ih = 200; // In case image hasn't loaded yet, pretend it's 3:2 aspect ratio. This needs work!
         }
         var selected_parent = selected.parent();
         selected_parent.children(".cover").css("width",iw+"px");
