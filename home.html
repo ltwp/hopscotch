@@ -158,15 +158,13 @@
 
       }
       .block{
-        min-width: 300px;
-        max-width: 300px;
-        max-height: 350px;
+        min-width: 200px;
         position: absolute;
         padding: 5px;
         background: white;
       }
       .block img{
-        max-width: 300px;
+        max-width: 350px;
         max-height: 350px;
         background: #ccffee;
         padding: 4px;
@@ -177,7 +175,6 @@
         z-index: 15;
         background-color: rgba(255,255,255,0);
         color: rgba(225,225,225,0);
-        padding: 10px;
         position: absolute;
         left: 0;
         top: 0;
@@ -189,6 +186,7 @@
       }
       #small{
         font-size: 14px;
+        width: 300px;
       }
 
       .overlay{
@@ -417,13 +415,14 @@
         var selected = $('.block img').eq(i);
         var iw = selected.width(); // should be 300 based on css, but for generality...
         var ih = selected.height();
+        console.log('width'+iw+' height'+ih);
         if(ih == 0){
           ih = 200; // In case image hasn't loaded yet, pretend it's 3:2 aspect ratio. This needs work!
         }
         var selected_parent = selected.parent();
-        selected_parent.children(".cover").css("width",iw+"px");
-        selected_parent.children(".cover").css("height",ih+"px");
-        selected_parent.children(".cover").css("line-height",ih+"px");
+        selected_parent.children(".cover").css("width",iw+10+"px");
+        selected_parent.children(".cover").css("height",ih+10+"px");
+        selected_parent.children(".cover").css("line-height",ih+10+"px");
       }
       $('.cover').hover(function(){
         // When you hover over an image block, give translucent overlay.
