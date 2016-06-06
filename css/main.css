@@ -1,0 +1,143 @@
+body{
+        font-family: 'Apercu',sans-serif;
+        font-weight: 300;
+        text-align: center;
+        line-height: 180%;
+      }
+
+      a{
+        text-decoration: none;
+        color: black;
+        background: #ccffee;
+        padding: 1px;
+      }
+
+      h1{
+        font-size: 38px;
+        font-weight: 300;
+        text-align: center;
+      }
+      h1 a{
+        text-decoration: none;
+        background: white;
+      }
+
+      #lines{
+        /* SVG styling in here */
+        z-index: 0;
+        width: 100%;
+        height: 2500px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      #blocks{
+        z-index: 10;
+        position: absolute; /* Will be set by JS. */
+        top: 0;
+        left: 0;
+
+      }
+      .block{
+        width: 300px;
+        position: absolute;
+        padding: 5px;
+        background: white;
+      }
+      .block img{
+        width: 300px;
+        background: #ccffee;
+        padding: 4px;
+      }
+
+      .cover{
+        /* these cover up images for text overlay */
+        z-index: 15;
+        background-color: rgba(255,255,255,0);
+        color: rgba(225,225,225,0);
+        padding: 10px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        cursor: pointer;
+        font-size: 35px;
+      }
+      .info_block{
+        cursor: pointer;
+      }
+      #small{
+        font-size: 14px;
+      }
+
+      .overlay{
+        display: none;
+        width: 100%;
+        height: 510px;
+        white-space: nowrap;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        position: fixed;
+        top: 5%;
+        left: 0px;
+        z-index: 50;
+        padding-left: 10px;
+        background-color: rgba(255,255,255,1);
+        border-top: 2px solid #ccffee;
+        border-bottom: 2px solid #ccffee;
+        font-size: 18px;
+      }
+      #anti_overlay{
+        /* invisible box that allows you to click-out of overlay */
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0,0);
+      }
+
+      .overlay::-webkit-scrollbar {
+        display: none;
+      }
+
+      .overlay img{
+        height: 500px;
+        width: auto;
+        display: inline-block;
+        z-index: 5;
+        padding: 0px;
+        padding-right: 5px;
+        padding-top: 5px;
+      }
+      .overlay p{
+        text-align: center;
+        margin: 65px auto;
+        height: 350px; /* total overlay height is 510px */
+      }
+      .overlay .text{
+        color: white;
+        position: absolute;
+        text-align: right;
+        top: 420px;
+        left: 80px;
+        font-size: 20px;
+      }
+      .overlay .name{
+        font-size: 50px;
+        letter-spacing: 0.05em;
+        color: white;
+        font-weight: bold;
+        position: absolute;
+        top: 370px;
+        left: 80px;
+        text-align: right;
+      }
+
+      path{
+        fill-opacity: 0;
+        stroke: #000000;
+        fill: #000000;
+        stroke-width: 2;
+      }
