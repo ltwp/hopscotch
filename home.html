@@ -23,8 +23,6 @@
         var h = $(document).height();
         var n_blocks = $('.block').length;
         var n_lines = n_blocks-1;
-        var block_width = $('.block').width();
-        var block_height = $('.block').height(); // In Pixels.
         var block_separation = 450; // In Pixels.
         var variable_block_separation = 75; // In Pixels.
         var max_rotation = 30; // In degrees.
@@ -39,6 +37,9 @@
           for(i=0; i<=n_blocks; i++){
             block_locations[2*i] = 100+block_separation*i+Math.floor((Math.random()-0.5)*variable_block_separation);
             block_locations[2*i+1] = Math.floor((0.5+0.8*(Math.random()-0.5))*w);
+
+            var block_width = $('.block').eq(i).width();
+            var block_height = $('.block').eq(i).height(); // In Pixels.
 
             $('.block').eq(i).css("top",block_locations[i*2] - block_height/2);
             $('.block').eq(i).css("left",block_locations[i*2+1] - block_width/2);
