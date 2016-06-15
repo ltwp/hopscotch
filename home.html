@@ -88,7 +88,7 @@
           draw.path(string);
         }
 
-        // Bring overlay up.
+        // Bringing overlay up & down.
         $('.cover').click(function(){
           var clicked_id = $(this).attr("id");
           $("#overlay_"+clicked_id).css("display","block");
@@ -156,7 +156,6 @@
         position: absolute; /* Will be set by JS. */
         top: 0;
         left: 0;
-
       }
       .block{
         min-width: 200px;
@@ -168,7 +167,7 @@
         max-width: 350px;
         max-height: 350px;
         background: #ccffee;
-        padding: 4px;
+        padding: 5px;
       }
 
       .cover{
@@ -268,7 +267,6 @@
 
     <div id="lines">
       <!-- SVG lines between content blocks will be inserted here. -->
-
 
     </div>
 
@@ -426,7 +424,7 @@
         var selected_parent = selected.parent();
         selected_parent.children(".cover").css("width",iw+10+"px");
         selected_parent.children(".cover").css("height",ih+10+"px");
-        selected_parent.children(".cover").css("line-height",ih+10+"px");
+        selected_parent.children(".cover").css("line-height",ih+15+"px");
       }
       $('.cover').hover(function(){
         // When you hover over an image block, give translucent overlay.
