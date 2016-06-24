@@ -105,6 +105,10 @@
           $('.overlay').css("display","none");
           $('#anti_overlay').css("display","none");
         });
+        $('.close_overlay').click(function(){
+          $('.overlay').css("display","none");
+          $('#anti_overlay').css("display","none");
+        });
 
       });
     </script>
@@ -202,21 +206,19 @@
 
       .overlay{
         display: none;
-        width: 100%;
-        max-height: 700px;
+        width: 70%;
+        min-width: 500px;
         height: 90%;
-        white-space: nowrap;
-        overflow-x: scroll;
-        overflow-y: hidden;
         position: fixed;
+        overflow-y: auto;
         top: 5%;
-        left: 0px;
+        left: 15%;
         z-index: 50;
-        background-color: rgba(255,255,255,1);
-        border-top: 2px solid #ccffee;
-        border-bottom: 2px solid #ccffee;
+        background-color: white;
+        border: 2px solid #ccffee;
         font-size: 18px;
       }
+
       #anti_overlay{
         /* invisible box that allows you to click-out of overlay */
         display: none;
@@ -227,26 +229,28 @@
         left: 0;
         background-color: rgba(0,0,0,0);
       }
-
       .overlay::-webkit-scrollbar {
-        display: none;
+        width: 5px;
+        background: transparent;
+      }
+      .overlay::-webkit-scrollbar-thumb {
+        background: #ccffee;
       }
 
       .overlay img{
-        height: 680px;
-        width: auto;
-        display: inline-block;
+        max-height: 800px;
+        max-width: 70%;
+        display: block;
         z-index: 5;
-        padding: 0px;
-        padding-top: 10px;
-        padding-right: 100px;
-        padding-left: 100px;
+        padding: 150px 0px;
+        margin: 0 auto;
       }
-      .overlay img:first-child{
-        padding-left: 0px;
-      }
-      .overlay img:last-child{
-        padding-right: 0px;
+
+      .overlay .video{
+        display: block;
+        z-index: 5;
+        padding: 150px 0px;
+        margin: 0 auto;
       }
 
       .overlay p{
@@ -255,22 +259,20 @@
         height: 50%;
       }
       .overlay .text{
-        color: white;
-        position: absolute;
-        text-align: right;
-        top: 420px;
-        left: 200px;
-        font-size: 20px;
+        text-align: center;
+        font-size: 18px;
+        margin-top: 50px;
       }
+      .overlay .text:last-child{
+        margin-bottom: 100px;
+      }
+
       .overlay .name{
+        text-align: center;
         font-size: 50px;
         letter-spacing: 0.05em;
-        color: white;
-        font-weight: bold;
-        position: absolute;
-        top: 370px;
-        left: 200px;
-        text-align: right;
+        xfont-weight: bold;
+        margin-top: 100px;
       }
 
       path{
@@ -318,18 +320,18 @@
         <div class="cover" id="layla">Layla</div>
       </div>
 
-<a href="shop.html">
-      <div class="block">
-        <img src="images/scarves/1.JPG" title='Scarves and Shirts' />
-        <div class="cover" id="scarves">SHOP</div>
-      </div>
-  </a>
+      <a href="shop.html">
+        <div class="block">
+          <img src="images/scarves/1.JPG" title='Scarves and Shirts' />
+          <div class="cover" id="scarves">SHOP</div>
+        </div>
+      </a>
 
       <!--
-      <div class="block">
-        <h1><a href="shop.html">Shop</a></h1>
-      </div>
-      -->
+<div class="block">
+<h1><a href="shop.html">Shop</a></h1>
+</div>
+-->
 
       <div class="block">
         <h1 class="info_block" id="process">Process</h1>
@@ -344,29 +346,34 @@
       </div>
 
       <div class="overlay" id="overlay_layla">
-        <div class="text">
-          Pair No. 1
-        </div>
         <div class="name">
           Layla
         </div>
+        <div class="text">
+          Pair No. 1
+        </div>
+
         <img src="images/layla/1.JPG" />
         <img src="images/layla/2.JPG" />
         <img src="images/layla/3.JPG" />
         <img src="images/layla/4.JPG" />
         <img src="images/layla/5.JPG" />
         <img src="images/layla/6.JPG" />
+        <div class="text">
+          Thanks to Layla May Ehsan.
+        </div>
       </div>
 
       <div class="overlay" id="overlay_avery">
-        <div class="text">
-          Pair No. 2
-        </div>
         <div class="name">
           Avery
         </div>
+        <div class="text">
+          Pair No. 2
+        </div>
+
+        <iframe class="video" width="800" height="450" src="https://player.vimeo.com/video/155347042?autoplay=0&amp;loop=0&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         <img src="images/avery/1.JPG" />
-        <!--<iframe id="video" height="580" width="1030"src="https://player.vimeo.com/video/155347042?autoplay=0&amp;loop=0&amp;title=1&amp;byline=1&amp;portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
         <img src="images/avery/2.JPG" />
         <img src="images/avery/3.JPG" />
         <img src="images/avery/4.JPG" />
@@ -374,15 +381,19 @@
         <img src="images/avery/6.JPG" />
         <img src="images/avery/7.JPG" />
         <img src="images/avery/8.JPG" />
+        <div class="text">
+          Thanks to Avery Schuster.
+        </div>
       </div>
 
       <div class="overlay" id="overlay_kari">
-        <div class="text">
-          Pair No. 3
-        </div>
         <div class="name">
           Kari
         </div>
+        <div class="text">
+          Pair No. 3
+        </div>
+
         <img src="images/kari/1.JPG" />
         <img src="images/kari/2.JPG" />
         <img src="images/kari/3.JPG" />
@@ -391,25 +402,28 @@
         <img src="images/kari/6.JPG" />
         <img src="images/kari/7.JPG" />
         <img src="images/kari/8.JPG" />
+        <div class="text">
+          Thanks to Kari Malkki.
+        </div>
       </div>
 
       <!--
-      <div class="overlay" id="overlay_scarves">
-        <div class="text">
-          Model: Tya Abe
-        </div>
-        <div class="name">
-          Scarves &amp; Shirts
-        </div>
-        <img src="images/scarves/1.JPG" />
-        <img src="images/scarves/2.JPG" />
-        <img src="images/scarves/3.JPG" />
-        <img src="images/scarves/4.JPG" />
-        <img src="images/scarves/5.JPG" />
-        <img src="images/scarves/6.JPG" />
-        <img src="images/scarves/7.JPG" />
-        <img src="images/scarves/8.JPG" />
-      </div>
+<div class="overlay" id="overlay_scarves">
+<div class="text">
+Model: Tya Abe
+</div>
+<div class="name">
+Scarves &amp; Shirts
+</div>
+<img src="images/scarves/1.JPG" />
+<img src="images/scarves/2.JPG" />
+<img src="images/scarves/3.JPG" />
+<img src="images/scarves/4.JPG" />
+<img src="images/scarves/5.JPG" />
+<img src="images/scarves/6.JPG" />
+<img src="images/scarves/7.JPG" />
+<img src="images/scarves/8.JPG" />
+</div>
 -->
 
       <div class="overlay" id="overlay_process">
