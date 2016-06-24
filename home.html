@@ -208,7 +208,7 @@
         display: none;
         width: 70%;
         min-width: 500px;
-        height: 90%;
+        max-height: 90%;
         position: fixed;
         overflow-y: auto;
         top: 5%;
@@ -229,11 +229,13 @@
         left: 0;
         background-color: rgba(0,0,0,0);
       }
-      .overlay::-webkit-scrollbar {
-        width: 5px;
+
+      ::-webkit-scrollbar {
+        width: 8px;
         background: transparent;
       }
-      .overlay::-webkit-scrollbar-thumb {
+
+      ::-webkit-scrollbar-thumb {
         background: #ccffee;
       }
 
@@ -255,7 +257,7 @@
 
       .overlay p{
         text-align: center;
-        margin: 8% auto;
+        margin: 10% auto;
         height: 50%;
       }
       .overlay .text{
@@ -372,7 +374,6 @@
           Pair No. 2
         </div>
 
-        <iframe class="video" width="800" height="450" src="https://player.vimeo.com/video/155347042?autoplay=0&amp;loop=0&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         <img src="images/avery/1.JPG" />
         <img src="images/avery/2.JPG" />
         <img src="images/avery/3.JPG" />
@@ -381,6 +382,7 @@
         <img src="images/avery/6.JPG" />
         <img src="images/avery/7.JPG" />
         <img src="images/avery/8.JPG" />
+        <iframe class="video" width="800" height="450" src="https://player.vimeo.com/video/155347042?autoplay=0&amp;loop=0&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         <div class="text">
           Thanks to Avery Schuster.
         </div>
